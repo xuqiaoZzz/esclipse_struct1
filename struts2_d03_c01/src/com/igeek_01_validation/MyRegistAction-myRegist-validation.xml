@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//Apache Struts//XWork Validator 1.0.3//EN"
+  		"http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<validators>
+	<!-- 验证用户名 :(非空，且长度为3-10位)-->
+	<field name="username">
+		<!-- 非空 -->		
+		<field-validator type="requiredstring">
+			<message>用户名不能为空</message>
+		</field-validator>
+		<!-- 长度验证 -->
+		<field-validator type="stringlength">
+			<param name="maxLength">10</param>
+			<param name="minLength">3</param>
+			<message>用户名必须是3-10位</message>
+		</field-validator>		
+	</field>
+	
+	<!-- 验证密码:(必须，且长度为6-12) -->
+	<field name="pwd">
+		<field-validator type="requiredstring">
+			<message>密码不能为空</message>
+		</field-validator>		
+		<field-validator type="stringlength">
+			<param name="maxLength">12</param>
+			<param name="minLength">6</param>
+			<message>密码必须是6-12位</message>
+		</field-validator>
+	</field>
+	
+	<!-- 重复密码：(必须和密码一致) 
+		 fieldexpression:专门用来比较表单字段的
+	-->
+	<field name="repwd">
+		<field-validator type="fieldexpression">
+			<param name="expression"><![CDATA[pwd==repwd]]></param>
+			<message>两次密码输入不一致</message>
+		</field-validator>
+	</field>
+	
+	<!-- 验证年龄：(年龄在18-90之间) -->
+	<field name="age">
+		<field-validator type="int">
+			<param name="min">18</param>
+			<param name="max">90</param>
+			<message>年龄必须在18-90之间</message>
+		</field-validator>
+	
+	</field>
+	
+	<!-- 验证手机号码：(手机号规则，11位数字) -->
+	<field name="phone">
+		<field-validator type="regex">
+			<param name="regex"><![CDATA[^\d{11}$]]></param>
+			<message>手机号码必须是11位</message>	
+		</field-validator>
+	</field>
+	
+	<!-- email:符合邮箱的格式 -->
+	<field name="email">
+		
+		<field-validator type="email">
+			<message>邮箱不符合格式</message>
+		</field-validator>
+	</field>	
+</validators>

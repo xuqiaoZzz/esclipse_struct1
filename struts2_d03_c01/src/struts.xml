@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	<struts>
+	<package name="default" extends="struts-default" namespace="/">
+		<!-- <global-results>
+			<result name="success">/jsp/global_result.jsp</result>
+		</global-results> -->
+		
+		<!-- 给自定义的拦截器起一个名字 -->
+		<interceptors>
+			<interceptor name="myceptor" class="com.igeek.action_01.MyInterceptor"></interceptor>
+		</interceptors> 
+		<action name="myAction" class="com.igeek.action_01.MyAction">
+			<!-- 配置自定义的拦截器 -->
+            <!-- 如果action中没有配置任何拦截器，这个action使用strust-default.xml中
+			的defaultStack拦截器栈定义的18个拦截器，
+			如果配置了自定义拦截器，那么使用自定义的拦截器，不会使用默认的的18个拦截器 
+			结论：我们实际开发过程中，不能只配置一个自定义的拦截器-->
+			<interceptor-ref name="myceptor"></interceptor-ref> 
+			
+		</action>
+		<action name="user_*" class="com.igeek_01_validation.LoginAction" method="{1}">
+			<result name="input">/a_validation/login.jsp</result>
+		</action>
+		
+		<!-- 配置xml校验的Action -->
+		<action name="mylogin" class="com.igeek_01_validation.MyLoginAction">
+			<result name="input">/a_validation/mylogin.jsp</result>
+			<result>/a_validation/success.jsp</result>
+		</action>
+		
+		<!-- 配置xml的局部校验器的Action -->
+		<action name="myRegist" class="com.igeek_01_validation.MyRegistAction" method="regist">
+			<result name="input">/a_validation/myRegist.jsp</result>
+			<result name="success">/a_validation/success.jsp</result>
+		</action>
+	</package>
+	
+	
+</struts>
